@@ -11,7 +11,7 @@ type Client struct {
 	Server *Server
 }
 
-func (c *Client) listen() {
+func (c *Client) Listen() {
 	c.Server.onNewClientCallback(c)
 	reader := bufio.NewReader(c.conn)
 	for {

@@ -50,7 +50,7 @@ func (s *Server) Listen() {
 			conn:   conn,
 			Server: s,
 		}
-		go client.listen()
+		go client.Listen()
 	}
 }
 
