@@ -54,8 +54,8 @@ func (s *Server) Listen() {
 	}
 }
 
-// New must create install of Server
-func New(address string) *Server {
+// NewServer  must create install of Server
+func NewServer(address string) *Server {
 	log.Println("Creating server with address", address)
 	server := &Server{
 		address: address,
