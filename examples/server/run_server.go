@@ -8,7 +8,7 @@ import (
 	"strconv"
 	"strings"
 
-	tcs "github.com/yvv4git/tcpclientserver"
+	tcs "github.com/yvv4git/tcpserver"
 )
 
 var clients []*tcs.Client
@@ -20,11 +20,13 @@ func main() {
 	server.OnNewClient(func(c *tcs.Client) {
 		fmt.Printf("Attach client: [%p] \n", c)
 		clients = append(clients, c)
+		printEnter()
 	})
 
 	// print message from client
 	server.OnNewMessage(func(c *tcs.Client, message string) {
-		fmt.Printf("Message[%p]: %s \n", c, message)
+		fmt.Printf("Message[%p]:\n%s", c, message)
+		printEnter()
 	})
 
 	// delete client from slice if his detach
@@ -40,12 +42,11 @@ func main() {
 
 	// stand up server in new gorutine
 	go server.Listen()
-	fmt.Println("Cycle... ")
 
 	// read admin commands
 	cmdReader := bufio.NewReader(os.Stdout)
 	for {
-		fmt.Println("\nEnter command: ")
+		printEnter()
 		cmd, _ := cmdReader.ReadString('\n')
 		cmdProcessing(cmd)
 	}
@@ -77,4 +78,8 @@ func cmdProcessing(cmd string) {
 			clients[botID].Send(cmdExec)
 		}
 	}
+}
+
+func printEnter() {
+	fmt.Println("\nEnter command: ")
 }

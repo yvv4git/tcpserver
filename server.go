@@ -1,4 +1,4 @@
-package tcpclientserver
+package tcpserver
 
 import (
 	"bufio"
@@ -95,6 +95,7 @@ type Client struct {
 	Server *Server
 }
 
+// Listen - processing client socket
 func (c *Client) Listen() {
 	c.Server.onNewClientCallback(c)
 	reader := bufio.NewReader(c.conn)
